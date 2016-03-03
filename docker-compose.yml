@@ -1,0 +1,20 @@
+version: '2'
+services: 
+  crowd:
+    build:
+      context: .
+      args:
+        CROWD_VERSION: 2.8.4
+    container_name: crowd
+    ports:
+      - "80:8095"
+      - "443:8443"
+    links:
+      - postgresql_crowd
+  postgresql_crowd:
+    image: postgres:9.3
+    container_name: postgresql_crowd
+    environment: 
+      - POSTGRES_DB=crowddb
+      - POSTGRES_USER=crowd
+      - POSTGRES_PASSWORD=crowd
